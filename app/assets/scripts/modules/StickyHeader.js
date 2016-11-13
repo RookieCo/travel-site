@@ -4,6 +4,7 @@ import smoothScroll from 'jquery-smooth-scroll';
 
 class StickHeader {
 	constructor() {
+		this.lazyImages = $(".lazyload");
 		this.siteHeader = $(".site-header");
 		this.headerTriggerElement = $(".large-hero__title");
 		this.createHeaderWaypoint();
@@ -11,6 +12,7 @@ class StickHeader {
 		this.headerLinks = $(".primary-nav a");
 		this.createPageSectionWaypoints();
 		this.addSmoothScrolling();
+		this.refreshWaypoints();
 	}
 
 	createHeaderWaypoint() {
@@ -24,6 +26,13 @@ class StickHeader {
 					that.siteHeader.removeClass("site-header--dark");
 				}		
 			}
+		});
+	}
+
+
+	refreshWaypoints() {
+		this.lazyImages.on("load", function() {
+			Waypoint.refreshAll();
 		});
 	}
 
